@@ -1,6 +1,6 @@
 <?php
 
-namespace DuoIncure\Relics;
+namespace DuoIncure\ComplexRelics;
 
 use pocketmine\event\Listener;
 use pocketmine\nbt\tag\StringTag;
@@ -17,7 +17,7 @@ class RelicsListener implements Listener {
 	 * RelicsListener constructor.
 	 * @param Main $plugin
 	 */
-	public function __construct(Main $plugin)
+	public function __construct(ComplexRelics $plugin)
 	{
 		$this->plugin = $plugin;
 	}
@@ -61,21 +61,34 @@ class RelicsListener implements Listener {
 		$blockID = $ev->getBlock()->getId();
 		$configBlocks = $config["block-ids"];
 		$levelName = $player->getLevel()->getName();
-		
+
 		if (in_array($blockID, $configBlocks) && ($config["worlds"][0] == "*" OR in_array($levelName, $config["worlds"]))) {
 			$commonChance = $config["common"]["chance"] ?? 50;
 			$rareChance = $config["rare"]["chance"] ?? 25;
 			$epicChance = $config["epic"]["chance"] ?? 15;
 			$legendaryChance = $config["legendary"]["chance"] ?? 10;
-			$chance = rand(1, 100);
-			if ($chance > $rareChance && $chance <= $commonChance) {
+			$chance = mt_rand(1, 200);
+        
+			if ($chance <= $commonChance) {
 				$this->plugin->getRelicFunctions()->giveCorrespondingRelic($player, "common");
-			} else if ($chance > $epicChance && $chance <= $rareChance) {
-				$this->plugin->getRelicFunctions()->giveCorrespondingRelic($player, "rare");
-			} else if ($chance > $legendaryChance && $chance <= $epicChance) {
-				$this->plugin->getRelicFunctions()->giveCorrespondingRelic($player, "epic");
-			} else if ($chance <= $legendaryChance) {
-				$this->plugin->getRelicFunctions()->giveCorrespondingRelic($player, "legendary");
+			}
+			else {
+				$chance -= $commonChance;
+				if ($chance <= $rareChance) {
+					$this->plugin->getRelicFunctions()->giveCorrespondingRelic($player, "rare");
+				}
+				else {
+					$chance -= $rareChance;
+					if ($chance <= $epicChance) {
+						$this->plugin->getRelicFunctions()->giveCorrespondingRelic($player, "epic");
+					} 
+					else {
+						$chance -= $epicChance;
+						if ($chance <= $legendaryChance) {
+							$this->plugin->getRelicFunctions()->giveCorrespondingRelic($player, "legendary");
+						}
+					}
+				}
 			}
 		}
 	}
