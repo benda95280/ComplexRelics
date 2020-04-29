@@ -8,7 +8,7 @@ An awesome relic plugin for PocketMine-MP!
 - Per world support ([*] or ["world1","world2"]
 - You can prevent block in config to be placed on world where it's activated
     (prevent cheat)
-- Item can or cannot be staked, as you want
+- Item can or cannot be stacked, as you want
 
 ## Looking for help with
 - More lore message / Translation
