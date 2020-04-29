@@ -10,14 +10,14 @@ use function file_exists;
 
 class ComplexRelics extends PluginBase{
 
-	public const VERSION = 1;
+	public const VERSION = 4;
 
 	/** @var Config */
 	private $cfg;
 	/** @var Language */
 	public static $lang;
 	/** @var RelicFunctions */
-	private $relicFunctions;
+	public $relicFunctions;
 
 	public function onEnable()
 	{
@@ -50,7 +50,7 @@ class ComplexRelics extends PluginBase{
 		}
 		else {
 			self::$lang = new Config($pathLang.DIRECTORY_SEPARATOR .$this->cfg["language"].".yml", Config::YAML);
-			self::$lang = self::$lang->getAll();	
+			self::$lang = self::$lang->getAll();
 		}
 		$this->relicFunctions = new RelicFunctions($this);
 		

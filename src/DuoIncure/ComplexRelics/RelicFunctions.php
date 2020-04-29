@@ -79,8 +79,8 @@ class RelicFunctions {
 		
 		foreach ($configBlocks as $key => $value){
 			if ( is_array($value) ) {
-				if ($key === $blockID) {
-					$return = $value;
+				if (array_key_first($value)  === $blockID) {
+					$return = $value[array_key_first($value)];
 					break;	
 				}				
 			}
@@ -101,7 +101,7 @@ class RelicFunctions {
 		
 		//Check Block Config
 		foreach ($configBlocks as $key => $value){
-			//Block can contait array of relics
+			//Block can contain array of relics
 			if ( is_array($value) ) {
 				foreach ($value as $keyBlockRelicsType => $blockRelicsType){
 					if (array_diff($blockRelicsType, array("common","rare","epic","legendary"))) {

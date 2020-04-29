@@ -1,13 +1,16 @@
 ---
 #CONFIG VERSION
 #DO NOT CHANGE THIS VALUE
-version: 3
+version: 4
 
 #ID of the relic. (Item given to player)
 relic-id: 399
 
 #Language
 language: "fr"
+
+#Relics can be stacked in inventory ?
+can-be-stacked: false
 
 #List of Block IDs that relics can be found with
 #Id can contain an array of relics that can be matched (common,rare,epic,legendary)
@@ -32,9 +35,9 @@ message-type: "title"
 #Choose if particles shown when a player finds/opens a relic
 particles-enabled: true
 
-#Rarity of Relic. Do not change this!
+#Rarity of Relic. Do not change their name !
 common:
-  #Chance in %
+  #Chance base is 200 (10 = 5% chance)
   chance: 5
   #List of commands. Use {player} for the player.
   #A command will be chosen at random from this list.
@@ -43,7 +46,7 @@ common:
     - "give {player} stone 10"
 
 rare:
-  chance: 3
+  chance: 3 
   commands:
     - "give {player} dirt 10"
     - "give {player} stone 25"

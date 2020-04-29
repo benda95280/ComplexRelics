@@ -46,6 +46,7 @@ class CommonRelicFunctions {
 		$relic->setLore([$lore,$hint]);
 		$nbt = $relic->getNamedTag();
 		$nbt->setTag(new StringTag(RelicFunctions::RELIC_TAG, self::RARITY));
+		if (!$this->cfg["can-be-stacked"]) $nbt->setTag(new StringTag("UnStacker", substr(str_shuffle(str_repeat($x='0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ', ceil(30/strlen($x)) )),1,30)));
 		return $relic;
 	}
 

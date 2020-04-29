@@ -60,15 +60,13 @@ class RelicsListener implements Listener {
 		$config = $this->plugin->getConfig()->getAll();
 		$blockID = $ev->getBlock()->getId();
 		$levelName = $player->getLevel()->getName();
-		$acceptedBlockAndRelics = $this->relicFunctions->acceptedBlockAndRelics($blockID);
-		
+		$acceptedBlockAndRelics = $this->plugin->relicFunctions->acceptedBlockAndRelics($blockID);
 		if ($acceptedBlockAndRelics && ($config["worlds"][0] == "*" OR in_array($levelName, $config["worlds"]))) {
 			$commonChance = $config["common"]["chance"] ?? 50;
 			$rareChance = $config["rare"]["chance"] ?? 25;
 			$epicChance = $config["epic"]["chance"] ?? 15;
 			$legendaryChance = $config["legendary"]["chance"] ?? 10;
 			$chance = mt_rand(1, 200);
-        
 			if ($chance <= $commonChance && ($acceptedBlockAndRelics == "*" OR in_array("common",$acceptedBlockAndRelics))) {
 				$this->plugin->getRelicFunctions()->giveCorrespondingRelic($player, "common");
 			}
