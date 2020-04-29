@@ -53,6 +53,10 @@ class ComplexRelics extends PluginBase{
 			self::$lang = self::$lang->getAll();	
 		}
 		$this->relicFunctions = new RelicFunctions($this);
+		
+		//Validate config file
+		$this->relicFunctions->checkIn();
+		
 		$this->getServer()->getPluginManager()->registerEvents(new RelicsListener($this), $this);
 	}
 

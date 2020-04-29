@@ -9,10 +9,13 @@ relic-id: 399
 #Language
 language: "fr"
 
-#List of Block IDs that relics can be found with.
+#List of Block IDs that relics can be found with
+#Id can contain an array of relics that can be matched (common,rare,epic,legendary)
+#Ex:   - 3 : ["common","rare"]
 block-ids:
-  - 3
-  - 4
+  - 2 : ["common"]
+  - 3 : ["common","rare"]
+  - 4 : ["common","rare"]
   - 12
   - 13
   

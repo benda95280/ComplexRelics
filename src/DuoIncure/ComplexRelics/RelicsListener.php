@@ -59,32 +59,32 @@ class RelicsListener implements Listener {
 		$player = $ev->getPlayer();
 		$config = $this->plugin->getConfig()->getAll();
 		$blockID = $ev->getBlock()->getId();
-		$configBlocks = $config["block-ids"];
 		$levelName = $player->getLevel()->getName();
-
-		if (in_array($blockID, $configBlocks) && ($config["worlds"][0] == "*" OR in_array($levelName, $config["worlds"]))) {
+		$acceptedBlockAndRelics = $this->relicFunctions->acceptedBlockAndRelics($blockID);
+		
+		if ($acceptedBlockAndRelics && ($config["worlds"][0] == "*" OR in_array($levelName, $config["worlds"]))) {
 			$commonChance = $config["common"]["chance"] ?? 50;
 			$rareChance = $config["rare"]["chance"] ?? 25;
 			$epicChance = $config["epic"]["chance"] ?? 15;
 			$legendaryChance = $config["legendary"]["chance"] ?? 10;
 			$chance = mt_rand(1, 200);
         
-			if ($chance <= $commonChance) {
+			if ($chance <= $commonChance && ($acceptedBlockAndRelics == "*" OR in_array("common",$acceptedBlockAndRelics))) {
 				$this->plugin->getRelicFunctions()->giveCorrespondingRelic($player, "common");
 			}
 			else {
 				$chance -= $commonChance;
-				if ($chance <= $rareChance) {
+				if ($chance <= $rareChance && ($acceptedBlockAndRelics == "*" OR in_array("rare",$acceptedBlockAndRelics))) {
 					$this->plugin->getRelicFunctions()->giveCorrespondingRelic($player, "rare");
 				}
 				else {
 					$chance -= $rareChance;
-					if ($chance <= $epicChance) {
+					if ($chance <= $epicChance && ($acceptedBlockAndRelics == "*" OR in_array("epic",$acceptedBlockAndRelics))) {
 						$this->plugin->getRelicFunctions()->giveCorrespondingRelic($player, "epic");
 					} 
 					else {
 						$chance -= $epicChance;
-						if ($chance <= $legendaryChance) {
+						if ($chance <= $legendaryChance && ($acceptedBlockAndRelics == "*" OR in_array("legendary",$acceptedBlockAndRelics))) {
 							$this->plugin->getRelicFunctions()->giveCorrespondingRelic($player, "legendary");
 						}
 					}
@@ -104,4 +104,5 @@ class RelicsListener implements Listener {
 			$ev->setCancelled();
 		}
 	}
+	
 }
