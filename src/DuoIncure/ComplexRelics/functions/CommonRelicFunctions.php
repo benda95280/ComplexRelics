@@ -39,10 +39,10 @@ class CommonRelicFunctions {
 	 */
 	public function createCommonRelic(): Item{
 		$relic = ItemFactory::get($this->relicID, 0, 1);
-		$name = str_replace("&", "§", ComplexRelics::$lang["main"]["relic"]["common"]["name"]);
+		$name = str_replace("&", "§", ComplexRelics::$lang["main"]["relic"][self::RARITY]["name"]);
 		$relic->setCustomName($name);
 		$hint = str_replace("&", "§", ComplexRelics::$lang["main"]["loreInstruction"]);
-		$lore = str_replace("&", "§", ComplexRelics::$lang["lore"]["common"][mt_rand(0, count(ComplexRelics::$lang["lore"]["common"]) - 1)]);
+		$lore = str_replace("&", "§", ComplexRelics::$lang["lore"][self::RARITY][mt_rand(0, count(ComplexRelics::$lang["lore"][self::RARITY]) - 1)]);
 		$relic->setLore([$lore,$hint]);
 		$nbt = $relic->getNamedTag();
 		$nbt->setTag(new StringTag(RelicFunctions::RELIC_TAG, self::RARITY));
@@ -54,21 +54,21 @@ class CommonRelicFunctions {
 	 * @param Player $player
 	 */
 	public function sendCorrespondingMessage(Player $player){
-			$msgForm = $this->cfg["message-type"] ?? "title";
-			switch($msgForm){
-				case "title":
-					$title = str_replace("&", "§", ComplexRelics::$lang["main"]["relic"]["common"]["title"]);
-					$player->addTitle($title);
-					break;
-				case "tip":
-					$tip = str_replace("&", "§", ComplexRelics::$lang["main"]["relic"]["common"]["tip"]);
-					$player->sendTip($tip);
-					break;
-				case "message":
-					$message = str_replace("&", "§", ComplexRelics::$lang["main"]["relic"]["common"]["message"]);
-					$player->sendMessage($message);
-					break;
-			}
+		$msgForm = $this->cfg["message-type"] ?? "title";
+		switch($msgForm){
+			case "title":
+				$title = str_replace("&", "§", ComplexRelics::$lang["main"]["relic"][self::RARITY]["title"]);
+				$player->addTitle($title);
+				break;
+			case "tip":
+				$tip = str_replace("&", "§", ComplexRelics::$lang["main"]["relic"][self::RARITY]["tip"]);
+				$player->sendTip($tip);
+				break;
+			case "message":
+				$message = str_replace("&", "§", ComplexRelics::$lang["main"]["relic"][self::RARITY]["message"]);
+				$player->sendMessage($message);
+				break;
+		}
 	}
 
 	/**
@@ -130,7 +130,7 @@ class CommonRelicFunctions {
 	 * @param Item $relic
 	 */
 	public function giveCommonRelicReward(Player $player, Item $relic){
-		$rewardArray = $this->cfg["common"]["commands"];
+		$rewardArray = $this->cfg[self::RARITY]["commands"];
 		$chosenReward = $rewardArray[array_rand($rewardArray)];
 		$commandToUse = str_replace("{player}", $player->getName(), $chosenReward);
 		$relic->setCount($relic->getCount() - 1);

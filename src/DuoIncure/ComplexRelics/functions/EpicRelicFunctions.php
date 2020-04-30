@@ -39,12 +39,14 @@ class EpicRelicFunctions {
 	 */
 	public function createEpicRelic(): Item{
 		$relic = ItemFactory::get($this->relicID, 0, 1);
-		$name = str_replace("&", "§", $this->cfg["epic"]["name"]);
+		$name = str_replace("&", "§", ComplexRelics::$lang["main"]["relic"][self::RARITY]["name"]);
 		$relic->setCustomName($name);
-		$lore = str_replace("&", "§", $this->cfg["epic"]["lore"]);
-		$relic->setLore([$lore]);
+		$hint = str_replace("&", "§", ComplexRelics::$lang["main"]["loreInstruction"]);
+		$lore = str_replace("&", "§", ComplexRelics::$lang["lore"][self::RARITY][mt_rand(0, count(ComplexRelics::$lang["lore"][self::RARITY]) - 1)]);
+		$relic->setLore([$lore,$hint]);
 		$nbt = $relic->getNamedTag();
 		$nbt->setTag(new StringTag(RelicFunctions::RELIC_TAG, self::RARITY));
+		if (!$this->cfg["can-be-stacked"]) $nbt->setTag(new StringTag("UnStacker", substr(str_shuffle(str_repeat($x='0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ', ceil(30/strlen($x)) )),1,30)));
 		return $relic;
 	}
 
@@ -55,15 +57,15 @@ class EpicRelicFunctions {
 		$msgForm = $this->cfg["message-type"] ?? "title";
 		switch($msgForm){
 			case "title":
-				$title = str_replace("&", "§", $this->cfg["epic"]["title"]);
+				$title = str_replace("&", "§", ComplexRelics::$lang["main"]["relic"][self::RARITY]["title"]);
 				$player->addTitle($title);
 				break;
 			case "tip":
-				$tip = str_replace("&", "§", $this->cfg["epic"]["tip"]);
+				$tip = str_replace("&", "§", ComplexRelics::$lang["main"]["relic"][self::RARITY]["tip"]);
 				$player->sendTip($tip);
 				break;
 			case "message":
-				$message = str_replace("&", "§", $this->cfg["epic"]["message"]);
+				$message = str_replace("&", "§", ComplexRelics::$lang["main"]["relic"][self::RARITY]["message"]);
 				$player->sendMessage($message);
 				break;
 		}
@@ -102,7 +104,7 @@ class EpicRelicFunctions {
 			$playerInventory->addItem($relic);
 		} else {
 			$player->getLevel()->dropItem($vector3Pos, $relic);
-			$player->sendTip(TF::RED . "You found a relic but your inventory was full!");
+			$player->sendTip(TF::RED . ComplexRelics::$lang["main"]["inventoryFull"]);
 		}
 	}
 
@@ -127,7 +129,7 @@ class EpicRelicFunctions {
 	 * @param Item $relic
 	 */
 	public function giveEpicRelicReward(Player $player, Item $relic){
-		$rewardArray = $this->cfg["epic"]["commands"];
+		$rewardArray = $this->cfg[self::RARITY]["commands"];
 		$chosenReward = $rewardArray[array_rand($rewardArray)];
 		$commandToUse = str_replace("{player}", $player->getName(), $chosenReward);
 		$relic->setCount($relic->getCount() - 1);
