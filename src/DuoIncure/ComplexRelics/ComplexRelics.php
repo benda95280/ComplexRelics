@@ -10,7 +10,7 @@ use function file_exists;
 
 class ComplexRelics extends PluginBase{
 
-	public const VERSION = 4;
+	public const VERSION = 6;
 
 	/** @var Config */
 	private $cfg;

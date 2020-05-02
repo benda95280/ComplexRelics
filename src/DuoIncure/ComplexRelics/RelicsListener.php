@@ -8,6 +8,8 @@ use pocketmine\event\player\PlayerInteractEvent;
 use pocketmine\event\block\BlockBreakEvent;
 use pocketmine\event\block\BlockPlaceEvent;
 
+
+
 class RelicsListener implements Listener {
 
 	/** @var Main */
@@ -57,11 +59,15 @@ class RelicsListener implements Listener {
 	 */
 	public function onBreak(BlockBreakEvent $ev){
 		$player = $ev->getPlayer();
+
 		$config = $this->plugin->getConfig()->getAll();
 		$blockID = $ev->getBlock()->getId();
+		// $blockToolType = $ev->getBlock()->getToolType();
+		// $eventToolType = $ev->getItem()->getBlockToolType();
 		$levelName = $player->getLevel()->getName();
-		$acceptedBlockAndRelics = $this->plugin->relicFunctions->acceptedBlockAndRelics($blockID);
-		if ($acceptedBlockAndRelics && ($config["worlds"][0] == "*" OR in_array($levelName, $config["worlds"]))) {
+		$acceptedBlockAndRelics = $this->plugin->relicFunctions->acceptedBlockAndRelics($blockID);		
+		
+		if ($acceptedBlockAndRelics && ($config["worlds"][0] == "*" OR in_array($levelName, $config["worlds"])) && ($player->isOp() === true ? $config["apply-to-op"] : true) && ($config["right-tool-needed"] === true ? ($ev->getBlock()->isCompatibleWithTool($ev->getItem()))  : true) ) {
 			$commonChance = $config["common"]["chance"] ?? 50;
 			$rareChance = $config["rare"]["chance"] ?? 25;
 			$epicChance = $config["epic"]["chance"] ?? 15;

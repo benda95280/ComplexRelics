@@ -1,7 +1,7 @@
 ---
 #CONFIG VERSION
 #DO NOT CHANGE THIS VALUE
-version: 4
+version: 6
 
 #ID of the relic. (Item given to player)
 relic-id: 399
@@ -11,6 +11,12 @@ language: "fr"
 
 #Relics can be stacked in inventory ?
 can-be-stacked: false
+
+#Need the right tool to be used ?
+right-tool-needed: true
+
+#Relics is applied to OP ?
+apply-to-op: true
 
 #List of Block IDs that relics can be found with
 #Id can contain an array of relics that can be matched (common,rare,epic,legendary)
