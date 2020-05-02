@@ -2,16 +2,18 @@
 An awesome relic plugin for PocketMine-MP!
 
 ## Features
-- Multi-Language support (French)
+- Multi-Language support (French, more if you send me translation)
 - Random lore messages
 - Block can have custom relics or not
 - Per world support ([*] or ["world1","world2"]
 - You can prevent block in config to be placed on world where it's activated
     (prevent cheat)
-- Item can or cannot be stacked, as you want
+- Item can or cannot be stacked
+- Can be obtained with the right tool or not
+- Can be disabled for OP
 
 ## Looking for help with
-- More lore message / Translation
+- More lore messages / Translations
 
 ## Read Below
 English is not my native language
