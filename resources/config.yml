@@ -1,13 +1,16 @@
 ---
 #CONFIG VERSION
 #DO NOT CHANGE THIS VALUE
-version: 6
+version: 7
 
 #ID of the relic. (Item given to player)
 relic-id: 399
 
-#Language
-language: "fr"
+#Default Language
+language: "fr_FR"
+
+#use language manager ? !(External plugin needed)!
+language_manager: false
 
 #Relics can be stacked in inventory ?
 can-be-stacked: false
@@ -41,31 +44,45 @@ message-type: "title"
 #Choose if particles shown when a player finds/opens a relic
 particles-enabled: true
 
-#Rarity of Relic. Do not change their name !
-common:
-  #Chance base is 200 (10 = 5% chance)
-  chance: 5
-  #List of commands. Use {player} for the player.
-  #A command will be chosen at random from this list.
-  commands:
-    - "give {player} dirt 5"
-    - "give {player} stone 10"
+#List of the relics
+relic-list:
+  #Name of that relic
+  common:
+    #Chance base is 200 (10 = 5% chance / 5 = 2.5%)
+    chance: 5 
+    #Player heard Totem sound when found a relic
+    sound: false
+    #List of commands. Use {player} for the player.
+    #A command will be chosen at random from this list.
+    commands:
+      - "give {player} dirt 5"
+      - "give {player} stone 10"
 
-rare:
-  chance: 3 
-  commands:
-    - "give {player} dirt 10"
-    - "give {player} stone 25"
+  rare:
+    chance: 3 
+    sound: true
+    commands:
+      - "give {player} dirt 10"
+      - "give {player} stone 25"
 
-epic:
-  chance: 2
-  commands:
-    - "give {player} dirt 25"
-    - "give {player} stone 50"
+  epic:
+    chance: 2
+    sound: true
+    commands:
+      - "give {player} dirt 25"
+      - "give {player} stone 50"
 
-legendary:
-  chance: 1
-  commands:
-    - "give {player} dirt 50"
-    - "give {player} stone 64"
+  legendary:
+    chance: 1
+    sound: true
+    commands:
+      - "give {player} dirt 50"
+      - "give {player} stone 64"
+  
+  #Exemple of custom relic
+  damned:
+    chance: 7
+    sound: true
+    commands:
+      - "effect {player} 19 10 1"
 ...

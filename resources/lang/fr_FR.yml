@@ -1,0 +1,69 @@
+---
+main:
+  inventoryFull: "Tu as trouvé une relique, mais ton inventaire est plein!"
+  loreInstruction: "&7Clique droit pour ouvrir!"
+  errorOnInteract: "Erreur avec la relique, contacter l'Admin"
+relic:
+  common:
+    #Shown on relic item
+    name: "&6Relique communue"
+    #Title shown to player. Use "\n" for a new line!
+    title: "&bBravo!\n&7Tu as trouvé une relique!"
+    #Tip shown to player.
+    tip: "&bBravo!\n&7Tu as trouvé une relique!"
+    #Message shown to player.
+    message: "&bBravo!\n&7Tu as trouvé une relique!"
+  rare:
+    name: "&6Relique Rare"
+    title: "&bBravo!\n&7Tu a trouvé une relique très rare!"
+    tip: "&bBravo!\n&7Tu as trouvé une relique très rare!"
+    message: "&bBravo!\n&7Tu as trouvé une relique très rare!"
+  epic:
+    name: "&6Relique Epique"
+    title: "&bBravo!\n&7Tu a trouvé une relique Epique!"
+    tip: "&bBravo!\n&7Tu as trouvé une relique Epique!"
+    message: "&bBravo!\n&7Tu as trouvé une relique Epique!"
+  legendary:
+    name: "&6Relique Légendaire"
+    title: "&bBravo!\n&7Tu as trouvé une relique Légendaire!"
+    tip: "&bBravo!\n&7Tu as trouvé une relique Légendaire!"
+    message: "&bBravo!\n&7Tu as trouvé une relique Légendaire!"
+  damned:
+    name: "&6Relique Maudite"
+    title: "&b...\n&7Tu as trouvé une relique Maudite!"
+    tip: "&b...\n&7Tu as trouvé une relique Maudite!"
+    message: "&b...\n&7Tu as trouvé une relique Maudite!"
+    
+    
+#Random on relic item
+lore:
+  common:
+    - "Tien, un cailloux ?"
+    - "On dirait une coquille vide"
+    - "Sa vaux pas grande chose"
+    - "Ne serais-ce pas une émeraude ? Ah non ..."
+    - "Je pourrais peut-etre l'échanger contre du dentifrice ?"
+    
+  rare:
+    - "Brille de milles feux"
+    - "Qu'est-ce donc ? Sa à drole de gout"
+    - "On dirait une petite statuette, avec de petites inscriptions"
+    - "Etrange, elle est plus lourde que ce que je pensait"
+    
+  legendary:
+    - "Quelle forme incroyable"
+    - "Cet objet dégage une aura étrange"
+    - "Me parle t-il ? Il emet un leger son doux et agréable"
+    - "C'est brillant, mais pas aveuglant, mais doux et chaud"
+
+  epic:
+    - "Mes yeux ... mes yeux ? Mes yeux !!"
+    - "L'on mavait parlé de ces symboles. Mais je n'y ai jamais cru ..."
+    - "La legende parle d'une larme perdu sur terre par un ange"
+    - "La gravure raconte une histoire, une guerre, un homme ... un dieux ?"
+    - "Que vois-je ? Des emeraudes, rubis et diamants ?"
+    - "On dirait qu'il tremble quand je le fixe du regard"
+    
+  damned:
+    - "Dois-je l'ouvrir ? Cela ne semble pas une bonne idée ..."
+...

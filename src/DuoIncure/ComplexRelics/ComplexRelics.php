@@ -5,22 +5,35 @@ namespace DuoIncure\ComplexRelics;
 
 use pocketmine\plugin\PluginBase;
 use pocketmine\utils\Config;
-use function mkdir;
-use function file_exists;
+use pocketmine\Player;
+use DuoIncure\ComplexRelics\RelicFunctions;
+
 
 class ComplexRelics extends PluginBase{
 
-	public const VERSION = 6;
+	public const VERSION = 7;
 
 	/** @var Config */
-	private $cfg;
+	public static $cfg;
 	/** @var Language */
 	public static $lang;
-	/** @var RelicFunctions */
-	public $relicFunctions;
+	/** @var Default Language */
+	public static $defaultLang;
+    /** @var ComplexRelics */
+    private static $instance;
+    /** @var relicList */	
+	public static $relicList = [];
+    /** @var langList */	
+	public static $langList = [];
+	
 
 	public function onEnable()
 	{
+
+        if (self::$instance === null) {
+            self::$instance = $this;
+        }
+		
 		//Check DataFolder exist or make it
 		if(!file_exists($this->getDataFolder())){
 			@mkdir($this->getDataFolder());
@@ -28,13 +41,13 @@ class ComplexRelics extends PluginBase{
 			$this->getLogger()->info("Config Not Found! Creating new config...");
 			$this->saveDefaultConfig();
 		}
-		$this->cfg = new Config($this->getDataFolder() . "config.yml", Config::YAML);
-		$this->cfg = $this->cfg->getAll();
-		if($this->cfg["version"] < self::VERSION){
+		self::$cfg = new Config($this->getDataFolder() . "config.yml", Config::YAML);
+		self::$cfg = self::$cfg->getAll();
+		if(self::$cfg["version"] < self::VERSION){
 			$this->getLogger()->error("Config Version is outdated! Please delete your current config file!");
 			$this->getServer()->getPluginManager()->disablePlugin($this);
 		}
-		
+				
 		$pathLang = $this->getDataFolder() . "lang";
         //Save default lang on first load
 		@mkdir($pathLang);
@@ -43,31 +56,53 @@ class ComplexRelics extends PluginBase{
 		}
 
 		//Check Language file exist
-		if(!file_exists($pathLang.DIRECTORY_SEPARATOR .$this->cfg["language"].".yml")){
-			$this->getLogger()->error("Language file not found. Please, verify your configuration!");
-			$this->getLogger()->error($pathLang.DIRECTORY_SEPARATOR .$this->cfg["language"].".yml");
+		if(!file_exists($pathLang.DIRECTORY_SEPARATOR .self::$cfg["language"].".yml")){
+			$this->getLogger()->error("Default language file not found. Please, verify your configuration!");
+			$this->getLogger()->error($pathLang.DIRECTORY_SEPARATOR .self::$cfg["language"].".yml");
 			$this->getServer()->getPluginManager()->disablePlugin($this);
 		}
 		else {
-			self::$lang = new Config($pathLang.DIRECTORY_SEPARATOR .$this->cfg["language"].".yml", Config::YAML);
-			self::$lang = self::$lang->getAll();
+			self::$defaultLang = self::$cfg["language"];
+			$files = glob($pathLang . DIRECTORY_SEPARATOR . '*.{yml}', GLOB_BRACE);
+			//Load all language availaible
+			foreach($files as $file) {
+				$langCodification = basename($file, ".yml");
+				self::$lang[$langCodification] = (new Config($file, Config::YAML))->getAll();
+			}
 		}
-		$this->relicFunctions = new RelicFunctions($this);
 		
-		//Validate config file
-		$this->relicFunctions->checkIn();
-		
-		$this->getServer()->getPluginManager()->registerEvents(new RelicsListener($this), $this);
+		//define relic list
+		self::$relicList = array_keys(self::$cfg["relic-list"]);
+		//define language list
+		self::$langList = array_keys(self::$lang);
+
+		//Validate config file and register lister if OK
+		if (RelicFunctions::checkIn())	{
+			$this->getServer()->getPluginManager()->registerEvents(new RelicsListener($this), $this);
+		}
+		else $this->getServer()->getPluginManager()->disablePlugin(ComplexRelics::getInstance());		
 	}
 
-	/**
-	 * @return RelicFunctions
-	 */
-	public function getRelicFunctions(){
-		if(!$this->relicFunctions instanceof RelicFunctions){
-			throw new \RuntimeException("relicFunctions was not an instanceof RelicFunctions");
+    public static function getInstance(): ComplexRelics
+    {
+        return self::$instance;
+    }
+	public static function getPlayerLanguage(player $player) {
+		if(self::$cfg["language_manager"]) {
+			//Get language of the player
+			$languageManager = self::getInstance()->getServer()->getPluginManager()->getPlugin("Language");
+			//If his language is not available in server, set default of this plugin
+			$langOfPlayer = $languageManager->getLanguage($player);
+			if (in_array($langOfPlayer,self::$langList)) return $langOfPlayer;
+			else {
+				return self::$defaultLang;
+				$this->getLogger()->error("ComplexRelic - Language Error: Language '$langOfPlayer' was not found in this plugin, but exist in language available");
+			}
+			
+			
 		}
-		return $this->relicFunctions;
+		else return self::$defaultLang;
 	}
+	
 
 }

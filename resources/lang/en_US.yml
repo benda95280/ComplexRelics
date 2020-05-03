@@ -1,0 +1,50 @@
+---
+main:
+  inventoryFull: "You have found a relic, but your inventory is full!"
+  loreInstruction: "&7Right click to open!"
+  errorOnInteract: "Error with the relic, contact administrator"
+relic:
+  common:
+    #Shown on relic item
+    name: "&6Common Relic"
+    #Title shown to player. Use "\n" for a new line!
+    title: "&bCongrats!\n&7You found a common relic!"
+    #Tip shown to player.
+    tip: "&bCongrats!\n&7You found a common relic!"
+    #Message shown to player.
+    message: "&bCongrats!\n&7You found a common relic!"
+  rare:
+    name: "&6Rare Relic"
+    title: "&bCongrats!\n&7You found a rare relic!"
+    tip: "&bCongrats!\n&7You found a rare relic!"
+    message: "&bCongrats!\n&7You found a rare relic!"
+  epic:
+    name: "&6Epic Relic"
+    title: "&bCongrats!\n&7You found an epic relic!"
+    tip: "&bCongrats!\n&7You found an epic relic!"
+    message: "&bCongrats!\n&7You found an epic relic!"
+  legendary:
+    name: "&6Legendary Relic"
+    title: "&bCongrats!\n&7You found a legendary relic!"
+    tip: "&bCongrats!\n&7You found a legendary relic!"
+    message: "&bCongrats!\n&7You found a legendary relic!"
+  damned:
+    name: "&6Damned Relic"
+    title: "&b...\n&7You found a damned relic!"
+    tip: "&b...\n&7You found a damned relic!"
+    message: "&b...\n&7You found a damned relic!"
+
+
+#Random on relic item
+lore:
+  common:
+    - "What si that?"    
+  rare:
+    - "It is a whining relic?"
+  legendary:
+    - "Wonderful shape!"
+  epic:
+    - "My eyes ... My eyes ? My eyes !!"
+  damned:
+    - "Do i have to open it ? Not a good idea ..."
+...
