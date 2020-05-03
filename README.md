@@ -16,9 +16,12 @@ An awesome relic plugin for PocketMine-MP!
 - Relic can have sound when found
 
 ## Screenshot
-![Screen1](https://i.imgur.com/tamLUeyg.png)
+![Screen1](https://i.imgur.com/CtN2Y0m.png)
+![Screen2](https://i.imgur.com/tamLUeyg.png)
 
-Video of InGame Multi-Language support: [HERE](https://media.giphy.com/media/W1UB4HKqw56IBilxNK/giphy.gif)
+
+Video of InGame Multi-Language support (Youtube): 
+[![Video1](https://img.youtube.com/vi/piIdmuvXjRg/0.jpg)](https://www.youtube.com/watch?v=piIdmuvXjRg)
 
 ## Looking for help with
 - More lore messages / Translations
