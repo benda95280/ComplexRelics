@@ -5,7 +5,7 @@ An awesome relic plugin for PocketMine-MP!
 - Basic Multi-Language support (French, more if you send me translation)
 - InGame Multi-Language (With external plugin: [Language](https://github.com/benda95280/Language))
 - Random lore messages
-- Block can have custom relics or not
+- Choose which block has relics
 - Per world support ([*] or ["world1","world2"]
 - You can prevent block in config to be placed on world where it's activated
     (prevent cheat)
