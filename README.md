@@ -2,6 +2,7 @@
 An awesome relic plugin for PocketMine-MP!
 
 ## Features
+- You can create your CUSTOM RELICS
 - Basic Multi-Language support (French, more if you send me translation)
 - InGame Multi-Language (With external plugin: [Language](https://github.com/benda95280/Language))
 - Random lore messages
@@ -12,9 +13,12 @@ An awesome relic plugin for PocketMine-MP!
 - Item can or cannot be stacked
 - Can be obtained with the right tool or not
 - Can be disabled for OP
+- Relic can have sound when found
 
 ## Screenshot
 ![Screen1](https://i.imgur.com/tamLUeyg.png)
+
+Video of InGame Multi-Language support: [HERE](https://media.giphy.com/media/W1UB4HKqw56IBilxNK/giphy.gif)
 
 ## Looking for help with
 - More lore messages / Translations
