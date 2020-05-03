@@ -20,7 +20,8 @@ An awesome relic plugin for PocketMine-MP!
 ![Screen2](https://i.imgur.com/tamLUeyg.png)
 
 
-Video of InGame Multi-Language support (Youtube): 
+Video of InGame Multi-Language support (Youtube):
+
 [![Video1](https://img.youtube.com/vi/piIdmuvXjRg/0.jpg)](https://www.youtube.com/watch?v=piIdmuvXjRg)
 
 ## Looking for help with
