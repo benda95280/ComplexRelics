@@ -1,4 +1,4 @@
-# ComplexRelics - Edited by Benda95280 ![Logo](https://gamepedia.cursecdn.com/minecraft_fr_gamepedia/a/a0/Totem_d%27immortalit%C3%A9.png)
+# MiningRelics - Edited by Benda95280 ![Logo](https://gamepedia.cursecdn.com/minecraft_fr_gamepedia/a/a0/Totem_d%27immortalit%C3%A9.png)
 An awesome relic plugin for PocketMine-MP!
 
 ## Features

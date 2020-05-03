@@ -1,7 +1,7 @@
 ---
-name: ComplexRelics
-version: 1.1.0
-main: DuoIncure\ComplexRelics\ComplexRelics
+name: MiningRelics
+version: 1.0.0
+main: MiningRelics\MiningRelics
 api: 3.11.6
-description: An awesome relic plugin for PocketMine-MP!
+description: Awesome mining relics plugin for PocketMine-MP!
 ...
