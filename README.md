@@ -3,7 +3,7 @@ An awesome relic plugin for PocketMine-MP!
 
 ## Features
 - Basic Multi-Language support (French, more if you send me translation)
-- InGame Multi-Language (With external plugin '([Language](https://github.com/benda95280/Language)')
+- InGame Multi-Language (With external plugin: [Language](https://github.com/benda95280/Language))
 - Random lore messages
 - Block can have custom relics or not
 - Per world support ([*] or ["world1","world2"]
