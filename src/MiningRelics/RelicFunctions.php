@@ -73,11 +73,46 @@ class RelicFunctions {
 			}
 			if (!isset($valueRelic["sound"]) || !is_bool($valueRelic["sound"]))	{
 				MiningRelics::getInstance()->getLogger()->error("Bad configuration for relic-list (SOUND), for relic $keyRelic, must be boolean");
-				return false;				
+				return false;
 			}
-			if (!isset($valueRelic["commands"]) || !is_array($valueRelic["commands"]) || count($valueRelic["commands"]) < 1) {
-				MiningRelics::getInstance()->getLogger()->error("Bad configuration for relic-list (COMMANDS), for relic $keyRelic, must be array and contain at least one command");
-				return false;	
+			//Checkin of rewards
+			if (isset($valueRelic["rewards"]) && is_array($valueRelic["rewards"]))	{
+				if (!isset($valueRelic["rewards"]["cmd"]) && !isset($valueRelic["rewards"]["item"]) && !isset($valueRelic["rewards"]["piggyce"])) {
+					MiningRelics::getInstance()->getLogger()->error("Bad configuration for relic-list REWARDS, for relic $keyRelic, must be array and contain at least one reward");
+					return false;					
+				}
+				else {
+					if (isset($valueRelic["rewards"]["cmd"]) && (!is_array($valueRelic["rewards"]["cmd"]) || count($valueRelic["rewards"]["cmd"]) < 1)) {
+						MiningRelics::getInstance()->getLogger()->error("Bad configuration for relic-list (CMD), for relic $keyRelic, must be array and contain at least one command");
+						return false;
+					}
+					if (isset($valueRelic["rewards"]["item"])) {
+						var_dump($valueRelic["rewards"]["item"]);
+						if (!is_array($valueRelic["rewards"]["item"]) || count($valueRelic["rewards"]["item"]) < 1) {
+							MiningRelics::getInstance()->getLogger()->error("Bad configuration for relic-list (ITEM), for relic $keyRelic, must be array and contain at least one item");
+							return false;
+						}
+						foreach ($valueRelic["rewards"]["item"] as $chekinItemKey => $chekinItemValue){
+							if (!isset($chekinItemValue[0]) || !isset($chekinItemValue[1])) {
+								MiningRelics::getInstance()->getLogger()->error("Bad configuration for relic-list (ITEM), for relic $keyRelic, check Item format of the array, line $chekinItemKey");
+								return false;
+							}
+							elseif (!is_int($chekinItemValue[0]) || !is_int($chekinItemValue[1])) {
+								MiningRelics::getInstance()->getLogger()->error("Bad configuration for relic-list (ITEM), for relic $keyRelic, check Item line $chekinItemKey, need to be INT");
+								return false;
+							}
+						}
+					}
+					if (isset($valueRelic["rewards"]["cmd"]) && (!is_array($valueRelic["rewards"]["cmd"]) || count($valueRelic["rewards"]["cmd"]) < 1)) {
+						MiningRelics::getInstance()->getLogger()->error("Bad configuration for relic-list (COMMANDS), for relic $keyRelic, must be array and contain at least one command");
+						return false;
+					}
+				}
+				//TODO: If piggiCE is used and not activated check
+			}
+			else {
+				MiningRelics::getInstance()->getLogger()->error("Missing configuration for relic-list REWARDS");
+				return false;
 			}
 			
 			//And RELIC must have their translation in all translation file loaded

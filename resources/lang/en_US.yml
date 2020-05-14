@@ -28,6 +28,11 @@ relic:
     title: "&bCongrats!\n&7You found a legendary relic!"
     tip: "&bCongrats!\n&7You found a legendary relic!"
     message: "&bCongrats!\n&7You found a legendary relic!"
+  unnamed:
+    name: "&6Unknown Relic"
+    title: "&bCongrats!\n&7You found an unknown relic!"
+    tip: "&bCongrats!\n&7You found an unknown relic!"
+    message: "&bCongrats!\n&7You found an unknown relic!"
   damned:
     name: "&6Damned Relic"
     title: "&b...\n&7You found a damned relic!"
@@ -45,6 +50,8 @@ lore:
     - "Wonderful shape!"
   epic:
     - "My eyes ... My eyes ? My eyes !!"
+  unnamed:
+    - "Une forme de signe, il se cache les yeux ..."
   damned:
     - "Do i have to open it ? Not a good idea ..."
 ...

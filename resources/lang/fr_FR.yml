@@ -28,6 +28,11 @@ relic:
     title: "&bBravo!\n&7Tu as trouvé une relique Légendaire!"
     tip: "&bBravo!\n&7Tu as trouvé une relique Légendaire!"
     message: "&bBravo!\n&7Tu as trouvé une relique Légendaire!"
+  unnamed:
+    name: "&6Relique Inconnue"
+    title: "&bBravo!\n&7Tu as trouvé une relique Inconnue!"
+    tip: "&bBravo!\n&7Tu as trouvé une relique Inconnue!"
+    message: "&bBravo!\n&7Tu as trouvé une relique Inconnue!"
   damned:
     name: "&6Relique Maudite"
     title: "&b...\n&7Tu as trouvé une relique Maudite!"
@@ -63,6 +68,9 @@ lore:
     - "La gravure raconte une histoire, une guerre, un homme ... un dieux ?"
     - "Que vois-je ? Des emeraudes, rubis et diamants ?"
     - "On dirait qu'il tremble quand je le fixe du regard"
+
+  unnamed:
+    - "Une forme de signe, il se cache les yeux ..."
     
   damned:
     - "Dois-je l'ouvrir ? Cela ne semble pas une bonne idée ..."

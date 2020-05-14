@@ -1,4 +1,5 @@
 # MiningRelics - Edited by Benda95280 ![Logo](https://gamepedia.cursecdn.com/minecraft_fr_gamepedia/a/a0/Totem_d%27immortalit%C3%A9.png)
+# ComplexRelics
 An awesome relic plugin for PocketMine-MP!
 
 ## Features
@@ -15,6 +16,15 @@ An awesome relic plugin for PocketMine-MP!
 - Can be disabled for OP
 - Relic can have sound when found
 
+## WIP
+- PiggyCE Integrarion :
+Random Item in 4 Level
+	$itemArray[0] = array(268, 269, 270, 271, 290, 298, 299, 300, 301);
+	$itemArray[1] = array(283, 284, 285, 286, 294, 314, 315, 316, 317, 261);
+	$itemArray[2] = array(272, 273, 274, 275, 291, 302, 303, 304, 305);
+	$itemArray[3] = array(306, 307, 308, 309, 256, 257, 258, 267, 292, 444);
+	$itemArray[4] = array(276, 277, 278 ,279, 293, 310, 311, 312, 313, 455);
+
 ## Screenshot
 ![Screen1](https://i.imgur.com/CtN2Y0m.png)
 ![Screen2](https://i.imgur.com/tamLUeyg.png)
@@ -24,8 +34,12 @@ Video of InGame Multi-Language support (Youtube):
 
 [![Video1](https://img.youtube.com/vi/piIdmuvXjRg/0.jpg)](https://www.youtube.com/watch?v=piIdmuvXjRg)
 
-## Looking for help with
+## Looking for help for:
+- Convert PuggyCE Enchant into config file
+- Change Handling of items in PiggyCE Files (Replace foreach 256/737)
+- Change some ugly code inside ...
 - More lore messages / Translations
+
 
 ## Read Below
 English is not my native language

@@ -7,6 +7,8 @@ use pocketmine\plugin\PluginBase;
 use pocketmine\utils\Config;
 use pocketmine\Player;
 use MiningRelics\RelicFunctions;
+use MiningRelics\functions\CreateItemPiggy;
+
 
 
 class MiningRelics extends PluginBase{
@@ -25,6 +27,8 @@ class MiningRelics extends PluginBase{
 	public static $relicList = [];
     /** @var langList */	
 	public static $langList = [];
+	/** @var PiggyCE_List */	
+	public static $RelicPiggyCE = null;
 	
 
 	public function onEnable()
@@ -80,13 +84,22 @@ class MiningRelics extends PluginBase{
 		if (RelicFunctions::checkIn())	{
 			$this->getServer()->getPluginManager()->registerEvents(new RelicsListener($this), $this);
 		}
-		else $this->getServer()->getPluginManager()->disablePlugin(MiningRelics::getInstance());		
+		else $this->getServer()->getPluginManager()->disablePlugin(MiningRelics::getInstance());	
+
+		//Init PiggyCE ?
+		if (self::$cfg["PiggyCE"]) {
+			self::$RelicPiggyCE = new CreateItemPiggy();
+			self::$RelicPiggyCE->initReclicPiggy();
+		}
+		
+
 	}
 
     public static function getInstance(): MiningRelics
     {
         return self::$instance;
     }
+	
 	public static function getPlayerLanguage(player $player) {
 		if(self::$cfg["language_manager"]) {
 			//Get language of the player

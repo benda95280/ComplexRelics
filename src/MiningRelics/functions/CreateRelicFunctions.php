@@ -4,8 +4,10 @@ namespace MiningRelics\functions;
 
 use MiningRelics\MiningRelics;
 use MiningRelics\RelicFunctions;
+use MiningRelics\functions\CreateItemPiggy;
 use pocketmine\math\Vector3;
 use pocketmine\nbt\tag\StringTag;
+use pocketmine\nbt\tag\CompoundTag;
 use pocketmine\Player;
 use pocketmine\item\ItemFactory;
 use pocketmine\item\Item;
@@ -27,9 +29,11 @@ class CreateRelicFunctions {
 			$hint = str_replace("&", "§", MiningRelics::$lang[MiningRelics::getPlayerLanguage($player)]["main"]["loreInstruction"]);
 			$lore = str_replace("&", "§", MiningRelics::$lang[MiningRelics::getPlayerLanguage($player)]["lore"][$rarity][mt_rand(0, count(MiningRelics::$lang[MiningRelics::getPlayerLanguage($player)]["lore"][$rarity]) - 1)]);
 			$relic->setLore([$lore,$hint]);
-			$nbt = $relic->getNamedTag();
-			$nbt->setTag(new StringTag(RelicFunctions::RELIC_TAG, $rarity));
-			if (!MiningRelics::$cfg["can-be-stacked"]) $nbt->setTag(new StringTag("UnStacker", substr(str_shuffle(str_repeat($x='0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ', ceil(30/strlen($x)) )),1,30)));
+			// $nbt = $relic->getNamedTag();
+			$CompoundTag = new CompoundTag("", []);
+			$CompoundTag->setTag(new StringTag(RelicFunctions::RELIC_TAG, $rarity));
+			if (!MiningRelics::$cfg["can-be-stacked"]) $CompoundTag->setTag(new StringTag("UnStacker", substr(str_shuffle(str_repeat($x='0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ', ceil(30/strlen($x)) )),1,30)));
+			$relic->setCustomBlockData($CompoundTag);
 			return $relic;
 		}
 		else {
@@ -123,17 +127,72 @@ class CreateRelicFunctions {
 	 * @param String $rarity
 	 */
 	public static function giveRelicReward(Player $player, Item $relic, $rarity){
-		$rewardArray = MiningRelics::$cfg["relic-list"][$rarity]["commands"];
-		$chosenReward = $rewardArray[array_rand($rewardArray)];
-		$particlesEnabled = MiningRelics::$cfg["particles-enabled"] ?? true;
-		$commandToUse = str_replace("{player}", $player->getName(), $chosenReward);
+		$rewardArray = MiningRelics::$cfg["relic-list"][$rarity]["rewards"];
+		$randomRewards = MiningRelics::$cfg["relic-list"][$rarity]["randomRewards"];
+
+		//Do you do all of them, or random of one of them ?
+		if (!$randomRewards) {
+			//Do all rewards
+			foreach ($rewardArray as $rewardKey => $rewardValue) {
+				CreateRelicFunctions::processrewards($player, $rewardKey, $rewardValue);
+			}
+		}
+		else {
+			//Select one random rewards
+			$chosenRewardType = array_rand($rewardArray);
+			CreateRelicFunctions::processrewards($player, $chosenRewardType, $rewardArray[$chosenRewardType]);
+		}
 		
+		//Do -1 relic item
 		$relic->setCount($relic->getCount() - 1);
 		$player->getInventory()->setItem($player->getInventory()->getHeldItemIndex(), $relic);
-		MiningRelics::getInstance()->getServer()->dispatchCommand(new ConsoleCommandSender(), $commandToUse);
-		
+		//Particles
+		$particlesEnabled = MiningRelics::$cfg["particles-enabled"] ?? true;
 		if($particlesEnabled === true){
 			CreateRelicFunctions::sendCorrespondingParticles($player, "open");
 		}
 	}
+	
+	public static function processRewards(Player $player, $rewardsType, $rewardsContent) {
+		$chosenReward = $rewardsContent[array_rand($rewardsContent)];
+		if ($rewardsType == "cmd"){
+			$commandToUse = str_replace("{player}", $player->getName(), $chosenReward);
+			MiningRelics::getInstance()->getServer()->dispatchCommand(new ConsoleCommandSender(), $commandToUse);
+		}
+		elseif ($rewardsType == "item"){
+			$itemID = $chosenReward[0];
+			$Number = $chosenReward[1];
+			$item = Item::get($itemID, 0, $Number);
+			CreateRelicFunctions::giveItemToPlayer($player, $item);
+		}
+		elseif ($rewardsType == "piggyce"){
+			$itemArray = $rewardsContent["itemarray"];
+			$enchantMaxLevel = $rewardsContent["maxlevel"];			
+			CreateRelicFunctions::giveItemToPlayer($player, MiningRelics::$RelicPiggyCE->getRandomPiggyRelic($itemArray,$enchantMaxLevel));
+		}
+		else {
+			$playerName = $player->getName();
+			MiningRelics::getInstance()->getLogger()->error("MiningRelics: GetRewardsError: $rewardsType - type of rewards not found, for player: $playerName");	
+			//TODO: send message to player			
+		}
+	}
+	
+	/**
+	 * @param Player $player
+	 * @param Item $item
+	 */
+	public static function giveItemToPlayer(Player $player, Item $item){
+		$playerInventory = $player->getInventory();
+		$playerX = $player->getX();
+		$playerY = $player->getY();
+		$playerZ = $player->getZ();
+		$vector3Pos = new Vector3($playerX, $playerY, $playerZ);
+		if($playerInventory->canAddItem($item)){
+			$playerInventory->addItem($item);
+		} else {
+			$player->getLevel()->dropItem($vector3Pos, $item);
+			$player->sendTip(TF::RED . MiningRelics::$lang[MiningRelics::getPlayerLanguage($player)]["main"]["inventoryFull"]);
+		}
+	}
+	
 }

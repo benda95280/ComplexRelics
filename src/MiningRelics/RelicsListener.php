@@ -22,8 +22,8 @@ class RelicsListener implements Listener {
 		$player = $ev->getPlayer();
 		if($ev->getAction() === PlayerInteractEvent::RIGHT_CLICK_BLOCK || $ev->getAction() === PlayerInteractEvent::RIGHT_CLICK_AIR){
 			$item = $ev->getItem();
-			$nbt = $item->getNamedTag();
-			if($nbt->hasTag(RelicFunctions::RELIC_TAG)){
+			$nbt = $item->getCustomBlockData();
+			if($nbt != null && $nbt->hasTag(RelicFunctions::RELIC_TAG)){
 				$relicType = $nbt->getTagValue(RelicFunctions::RELIC_TAG, StringTag::class);
 				if (in_array($relicType, MiningRelics::$relicList)) {
 					CreateRelicFunctions::giveRelicReward($player, $item, $relicType);

@@ -10,7 +10,10 @@ relic-id: 399
 language: "fr_FR"
 
 #use language manager ? !(External plugin needed)!
-language_manager: false
+language_manager: true
+
+#use PiggyCE ?
+PiggyCE: true
 
 #Relics can be stacked in inventory ?
 can-be-stacked: false
@@ -49,40 +52,65 @@ relic-list:
   #Name of that relic
   common:
     #Chance base is 200 (10 = 5% chance / 5 = 2.5%)
-    chance: 5 
+    chance: 5
     #Player heard Totem sound when found a relic
     sound: false
-    #List of commands. Use {player} for the player.
-    #A command will be chosen at random from this list.
-    commands:
-      - "give {player} dirt 5"
-      - "give {player} stone 10"
+    #All rewards or random ?
+    randomRewards: true
+    #randomRewards: TRUE=> One of this list will be choosen, if CMD / PiggyCE / Item contain more than one entry, it will be random
+    #randomRewards: FALSE=> ALL of this list will be choosen, if CMD / PiggyCE / Item contain more than one entry, it will be random
+    #For commands, use {player} for the player.
+    rewards:
+      #item: 
+        #Format: - [ID,NUMBER]
+        #EX: - [1,25]
+      #cmd:
+        #- "give {player} stone 5"
+        #- "give {player} dirt 10"
+      piggyce:
+        itemarray: 0
+        maxlevel: 2
 
   rare:
     chance: 3 
     sound: true
-    commands:
-      - "give {player} dirt 10"
-      - "give {player} stone 25"
+    randomRewards: true
+    rewards:
+      #item: 
+      #cmd:
+      piggyce:
+        itemarray: 1
+        maxlevel: 2
+      
 
   epic:
     chance: 2
     sound: true
-    commands:
-      - "give {player} dirt 25"
-      - "give {player} stone 50"
+    randomRewards: true
+    rewards:
+      #item: 
+      #cmd:
+      piggyce:
+        itemarray: 1
+        maxlevel: 2
 
   legendary:
     chance: 1
     sound: true
-    commands:
-      - "give {player} dirt 50"
-      - "give {player} stone 64"
+    randomRewards: true
+    rewards:
+      #item: 
+      #cmd:
+      piggyce:
+        itemarray: 1
+        maxlevel: 2
   
   #Exemple of custom relic
   damned:
     chance: 7
     sound: true
-    commands:
-      - "effect {player} 19 10 1"
+    randomRewards: true
+    rewards:
+      cmd:
+        - "effect {player} 19 10 1"
 ...
